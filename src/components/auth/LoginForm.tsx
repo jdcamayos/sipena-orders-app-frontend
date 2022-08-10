@@ -59,7 +59,7 @@ export default function LoginForm(props: Props) {
 				type='password'
 				value={formik.values.password}
 			/>
-			<FormControlLabel
+			{/* <FormControlLabel
 				control={
 					<Checkbox
 						name='rememberMe'
@@ -69,7 +69,7 @@ export default function LoginForm(props: Props) {
 					/>
 				}
 				label='Remember me'
-			/>
+			/> */}
       <AuthButton
         loading={loading}
         content="Login"

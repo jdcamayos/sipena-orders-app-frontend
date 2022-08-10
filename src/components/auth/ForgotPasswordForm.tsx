@@ -16,7 +16,7 @@ type Props = {
 	forgotPassword: (email: string) => void
 }
 
-export default function ForgotPassword(props: Props) {
+export default function ForgotPasswordForm(props: Props) {
 	const { loading, forgotPassword } = props
 	const formik = useFormik({
 		initialValues: {
@@ -53,7 +53,7 @@ export default function ForgotPassword(props: Props) {
 				}
 				label='Remember me'
 			/> */}
-			<AuthButton loading={loading} content='Login' />
+			<AuthButton loading={loading} content='Recovery password' />
 			<Grid container spacing={2}>
 				<Grid item xs={12}>
 					<Link component={LinkRouter} to='/login' variant='body2'>

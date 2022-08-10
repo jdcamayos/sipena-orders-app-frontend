@@ -43,7 +43,7 @@ export default function ThemeProvider(props: Props) {
 						main: '#F2652E'
 					},
 					background: {
-						default: '#0E142D'
+						// default: '#0E142D'
 					}
 				},
 			}),
