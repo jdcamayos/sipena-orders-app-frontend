@@ -6,12 +6,13 @@ import * as React from 'react'
 import AuthButton from './AuthButton'
 // MUI Styles
 import Box from '@mui/material/Box'
-import Checkbox from '@mui/material/Checkbox'
-import FormControlLabel from '@mui/material/FormControlLabel'
+// import Checkbox from '@mui/material/Checkbox'
+// import FormControlLabel from '@mui/material/FormControlLabel'
 import Grid from '@mui/material/Grid'
 import Link from '@mui/material/Link'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
+import PasswordInput from '../misc/PasswordInput'
 
 type Props = {
 	loading: boolean
@@ -74,17 +75,12 @@ export default function RegisterForm(props: Props) {
 					/>
 				</Grid>
 				<Grid item xs={12}>
-					<TextField
-						autoComplete='current-password'
-						// error={formik.errors.password}
+					<PasswordInput
 						fullWidth
-						label='Password'
+						inputOnChange={formik.handleChange}
+						inputValue={formik.values.password}
 						margin='normal'
-						name='password'
-						onChange={formik.handleChange}
 						required
-						type='password'
-						value={formik.values.password}
 					/>
 				</Grid>
 				{/* <Grid item xs={12}>

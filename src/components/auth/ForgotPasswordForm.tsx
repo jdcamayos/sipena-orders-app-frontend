@@ -9,7 +9,7 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Link from '@mui/material/Link'
 import TextField from '@mui/material/TextField'
-import Typography from '@mui/material/Link'
+import Typography from '@mui/material/Typography'
 
 type Props = {
 	loading: boolean
@@ -42,17 +42,6 @@ export default function ForgotPasswordForm(props: Props) {
 				type='email'
 				value={formik.values.email}
 			/>
-			{/* <FormControlLabel
-				control={
-					<Checkbox
-						name='rememberMe'
-						checked={formik.values.rememberMe}
-						onChange={formik.handleChange}
-						color='primary'
-					/>
-				}
-				label='Remember me'
-			/> */}
 			<AuthButton loading={loading} content='Recovery password' />
 			<Grid container spacing={2}>
 				<Grid item xs={12}>
@@ -62,13 +51,6 @@ export default function ForgotPasswordForm(props: Props) {
 						</Typography>
 					</Link>
 				</Grid>
-				{/* <Grid item xs={12} md={6}>
-					<Link component={LinkRouter} to='/register' variant='body2'>
-						<Typography align='center' sx={{ '&:hover': { textDecoration: 'underline', cursor: 'pointer' } }}>
-							{"Don't have an account? Register"}
-						</Typography>
-					</Link>
-				</Grid> */}
 			</Grid>
 		</Box>
 	)

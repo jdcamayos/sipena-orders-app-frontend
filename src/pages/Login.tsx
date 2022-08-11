@@ -5,7 +5,9 @@ import LoginForm from '../components/auth/LoginForm'
 import useAuth from '../hooks/useAuth'
 
 export default function Login() {
-	const { loading, signIn } = useAuth()
+	const { auth, loading, signIn } = useAuth()
+
+	if (auth.isAuth) return null
 
 	return (
 		<AuthLayout>

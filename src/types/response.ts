@@ -32,7 +32,7 @@ export interface OrdersResponse extends Response {
 }
 
 export interface CustomerResponse extends Response {
-	data: Customer
+	data: Customer | null
 }
 
 export interface OrderResponse extends Response {

@@ -10,3 +10,7 @@ export interface Customer {
   phone: string
   userId: string
 }
+
+export interface CreateCustomer extends Omit<Customer, 'id' | 'createdAt' | 'updatedAt' | 'userId'> {}
+
+export interface UpdateCustomer extends Partial<CreateCustomer> {}

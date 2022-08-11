@@ -5,7 +5,10 @@ import RegisterForm from '../components/auth/RegisterForm'
 import useAuth from '../hooks/useAuth'
 
 export default function Register() {
-	const { loading, signUp } = useAuth()
+	const { auth, loading, signUp } = useAuth()
+
+	if (auth.isAuth) return null
+
 	return (
 		<AuthLayout>
 			<>
