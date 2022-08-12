@@ -8,27 +8,27 @@ import TextField from '@mui/material/TextField'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-type CustomerInfoProps = {
+type Props = {
 	initialValues?: CreateCustomer
 	isForm?: boolean
 	isUpdate?: boolean
 	handleClose?: () => void
 }
 
-export default function CustomerInfo(props: CustomerInfoProps) {
+export default function CustomerInfo(props: Props) {
   const { initialValues, isForm, isUpdate, handleClose } = props
 
 	const formik = useFormik({
 		initialValues: initialValues
 			? initialValues
 			: {
-					companyName: '',
-					streetAddress: '',
-					city: '',
-					state: '',
-					postalCode: '',
-					phone: '',
-			  },
+				companyName: '',
+				streetAddress: '',
+				city: '',
+				state: '',
+				postalCode: '',
+				phone: '',
+			},
 		onSubmit: async values => {
       try {
         console.log(values)

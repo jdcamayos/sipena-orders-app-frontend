@@ -2,6 +2,7 @@ import * as React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 // Context
 import AuthProvider from '../contexts/AuthContext'
+import OrderProvider from '../contexts/OrderContext'
 import ThemeProvider from '../contexts/ThemeContext'
 import Admin from '../pages/Admin'
 // Pages
@@ -32,7 +33,14 @@ export default function App() {
 						<Route element={<PrivateRoutes />}>
 							<Route path='/' element={<Home />} />
 							<Route path='/profile' element={<Profile />} />
-							<Route path='/order/new' element={<NewOrder />} />
+							<Route
+								path='/order/new'
+								element={
+									<OrderProvider>
+										<NewOrder />
+									</OrderProvider>
+								}
+							/>
 							<Route path='/order/:orderId' element={<Order />} />
 							<Route element={<AdminRoutes />}>
 								<Route path='/admin' element={<Admin />} />

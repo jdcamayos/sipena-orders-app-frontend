@@ -1,5 +1,5 @@
 import { Attachment } from "./attachment"
-import { Container } from "./container"
+import { Container, CreateContainer } from "./container"
 import { Worker } from "./worker"
 
 export interface Order {
@@ -21,4 +21,9 @@ export interface OrderComplete extends Order {
   containers: Container[]
   workers: Worker[]
   attachments: Attachment[]
+}
+
+
+export interface CreateOrder extends Omit<Order, 'id' | 'createdAt' | 'updatedAt' | 'customerId'> {
+  containers: CreateContainer[]
 }

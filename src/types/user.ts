@@ -5,3 +5,7 @@ export interface User {
 	email: string
 	role: 'admin' | 'customer' | 'worker'
 }
+
+export interface AdminUser extends Omit<User, 'id' | 'createdAt' | 'updatedAt'> {
+	blocked: boolean
+}

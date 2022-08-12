@@ -1,5 +1,5 @@
 import * as React from 'react'
-import IconButton from '@mui/material/IconButton'
+// import IconButton from '@mui/material/IconButton'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
-import EditIcon from '@mui/icons-material/Edit'
+// import EditIcon from '@mui/icons-material/Edit'
 import UserForm from './UserForm'
 
 export default function UsersTable() {
@@ -31,7 +31,7 @@ export default function UsersTable() {
 				Users
 			</Typography>
 			<TableContainer component={Paper} sx={{ maxWidth: 650 }}>
-				<Table size='small' aria-label='a dense table'>
+				<Table size='small' aria-label='users table'>
 					<TableHead>
 						<TableRow>
 							<TableCell align='center'>Status</TableCell>

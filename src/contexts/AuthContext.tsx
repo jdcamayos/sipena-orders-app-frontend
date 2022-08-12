@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react'
+import * as React from 'react'
 import { User } from '../types'
 
 type Auth = {
@@ -12,10 +12,10 @@ type AuthContextType = {
   setAuth: React.Dispatch<React.SetStateAction<Auth>>
 }
 
-export const AuthContext = createContext<AuthContextType>({} as AuthContextType)
+export const AuthContext = React.createContext<AuthContextType>({} as AuthContextType)
 
 type Props = {
-  children: ReactNode
+  children: React.ReactNode
 }
 
 const initialState: Auth = {
@@ -25,7 +25,7 @@ const initialState: Auth = {
 }
 
 export default function AuthProvider(props: Props) {
-  const [auth, setAuth] = useState<Auth>(initialState)
+  const [auth, setAuth] = React.useState<Auth>(initialState)
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>

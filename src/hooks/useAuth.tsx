@@ -10,7 +10,7 @@ export default function useAuth() {
 	const { auth, setAuth } = context
 	const [loading, setLoading] = React.useState(false)
 
-	if (context === undefined) throw new Error('useAuth must be used within a AuthProvider')
+	if (context === undefined) throw new Error('useAuth must be used within an AuthProvider')
 
 	React.useEffect(() => {
 		if (!auth.isAuth) {

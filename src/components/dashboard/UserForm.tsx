@@ -4,10 +4,7 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import EditIcon from '@mui/icons-material/Edit'
 import IconButton from '@mui/material/IconButton'
-
-const UserInfo = () => {
-	return <div>something</div>
-}
+import UserInfo from './UserInfo'
 
 export default function UserForm() {
 	const [open, setOpen] = React.useState(false)
@@ -28,7 +25,7 @@ export default function UserForm() {
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle>Update User</DialogTitle>
 				<DialogContent>
-					<UserInfo />
+					<UserInfo handleClose={handleClose} />
 				</DialogContent>
 			</Dialog>
 		</>

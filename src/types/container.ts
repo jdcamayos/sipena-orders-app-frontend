@@ -11,3 +11,5 @@ export interface Container {
   additionalInfo: string
   orderId: string
 }
+
+export interface CreateContainer extends Omit<Container, 'id' | 'createdAt' | 'updatedAt' | 'orderId'> {}
