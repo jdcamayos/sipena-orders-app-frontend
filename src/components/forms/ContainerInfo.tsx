@@ -1,6 +1,6 @@
 import { useFormik } from 'formik'
 import * as React from 'react'
-import { CreateContainer } from '../../types'
+import { CreateContainer, ListItemCreateContainer } from '../../types'
 import Button from '@mui/material/Button'
 import Checkbox from '@mui/material/Checkbox'
 import FormControl from '@mui/material/FormControl'
@@ -13,7 +13,7 @@ import TextField from '@mui/material/TextField'
 import useCreateOrder from '../../hooks/useCreateOrder'
 
 type Props = {
-	initialValues?: CreateContainer
+	initialValues?: ListItemCreateContainer
 	isForm?: boolean
 	isUpdate?: boolean
 	handleClose?: () => void
@@ -21,11 +21,19 @@ type Props = {
 
 export default function ContainerInfo(props: Props) {
 	const { initialValues, isUpdate, handleClose } = props
-	const { addContainer } = useCreateOrder()
+	const { addContainer, editContainer } = useCreateOrder()
 
 	const formik = useFormik({
 		initialValues: initialValues
-			? initialValues
+			? {
+					type: initialValues.type,
+					contain: initialValues.contain,
+					productQuantity: initialValues.productQuantity,
+					productWeight: initialValues.productWeight,
+					forkliftOperator: initialValues.forkliftOperator,
+					stretchWrap: initialValues.stretchWrap,
+					additionalInfo: initialValues.additionalInfo,
+				}
 			: {
 					type: '20ft',
 					contain: '',
@@ -36,8 +44,11 @@ export default function ContainerInfo(props: Props) {
 					additionalInfo: '',
 			  },
 		onSubmit: async (values: CreateContainer) => {
-			// console.log(values)
-			addContainer(values)
+			if (isUpdate && initialValues) {
+				editContainer({ id: initialValues.id, ...values })
+			} else {
+				addContainer(values)
+			}
       handleClose && handleClose()
 		},
 	})
@@ -47,7 +58,14 @@ export default function ContainerInfo(props: Props) {
 			<Grid item xs={12}>
 				<FormControl>
 					<FormLabel id='container-type-group'>Type</FormLabel>
-					<RadioGroup row aria-labelledby='container-type-group' defaultValue='20ft' name='type'>
+					<RadioGroup
+						row
+						aria-labelledby='container-type-group'
+						defaultValue='20ft'
+						name='type'
+						value={formik.values.type}
+						onChange={formik.handleChange}
+					>
 						<FormControlLabel value='20ft' control={<Radio />} label='20 ft' />
 						<FormControlLabel value='40ft' control={<Radio />} label='40 ft' />
 					</RadioGroup>
@@ -99,10 +117,26 @@ export default function ContainerInfo(props: Props) {
 				/>
 			</Grid>
 			<Grid item xs={6}>
-				<FormControlLabel control={<Checkbox />} label='Forklift Operator' />
+				<FormControlLabel control={
+					<Checkbox
+						name="forkliftOperator"
+						checked={formik.values.forkliftOperator}
+						onChange={formik.handleChange}
+					/>
+					}
+					label='Forklift Operator'
+				/>
 			</Grid>
 			<Grid item xs={6}>
-				<FormControlLabel control={<Checkbox />} label='Strech Wrap' />
+				<FormControlLabel control={
+					<Checkbox
+						name="stretchWrap"
+						checked={formik.values.stretchWrap}
+						onChange={formik.handleChange}
+					/>
+					}
+					label='Strech Wrap'
+				/>
 			</Grid>
 			<Grid item xs={12}>
 				<TextField

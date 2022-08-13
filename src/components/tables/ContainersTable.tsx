@@ -11,20 +11,25 @@ import TableCell from '@mui/material/TableCell'
 import TableBody from '@mui/material/TableBody'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
-import EditIcon from '@mui/icons-material/Edit'
-import { CreateContainer } from '../../types'
+// import EditIcon from '@mui/icons-material/Edit'
+import { ListItemCreateContainer } from '../../types'
+import useCreateOrder from '../../hooks/useCreateOrder'
+import ContainerForm from '../forms/ContainerForm'
 
 type Props = {
-	containers: CreateContainer[]
+	containers: ListItemCreateContainer[]
 }
 
 export default function ContainersTable(props: Props) {
+	const { removeContainer } = useCreateOrder()
 	const { containers } = props
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-			<Typography variant='h5' sx={{ mb: 2 }}>
-				Containers
-			</Typography>
+			<Box sx={{ width: "100%" }}>
+				<Typography align='left' variant='h6' sx={{ marginBottom: 2, marginLeft: 2 }}>
+					Containers
+				</Typography>
+			</Box>
 			<TableContainer component={Paper}>
 				<Table size='small' aria-label='container table'>
 					<TableHead>
@@ -42,28 +47,32 @@ export default function ContainersTable(props: Props) {
 					<TableBody>
 						{!containers.length && (
 							<TableRow>
-								<TableCell colSpan={8} align="center">Not containers yet</TableCell>
+								<TableCell colSpan={8} align='center'>
+									Not containers yet
+								</TableCell>
 							</TableRow>
 						)}
-						{!!containers.length && containers.map((container, i) => (
-							<TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-								<TableCell align='center'>
-									<IconButton>
-										<EditIcon />
-									</IconButton>
-									<IconButton>
-										<DeleteIcon />
-									</IconButton>
-								</TableCell>
-								<TableCell align='center'>{container.type}</TableCell>
-								<TableCell align='center'>{container.contain}</TableCell>
-								<TableCell align='center'>{container.productQuantity}</TableCell>
-								<TableCell align='center'>{container.productWeight}</TableCell>
-								<TableCell align='center'>{container.forkliftOperator ? 'Yes' : 'No'}</TableCell>
-								<TableCell align='center'>{container.stretchWrap ? 'Yes' : 'No'}</TableCell>
-								<TableCell align='center'>{container.additionalInfo}</TableCell>
-							</TableRow>
-						))}
+						{!!containers.length &&
+							containers.map(container => (
+								<TableRow key={container.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+									<TableCell align='center'>
+										<ContainerForm isUpdate={true} initialValues={container} />
+										{/* <IconButton>
+											<EditIcon />
+										</IconButton> */}
+										<IconButton onClick={() =>  removeContainer(container.id)}>
+											<DeleteIcon />
+										</IconButton>
+									</TableCell>
+									<TableCell align='center'>{container.type}</TableCell>
+									<TableCell align='center'>{container.contain}</TableCell>
+									<TableCell align='center'>{container.productQuantity}</TableCell>
+									<TableCell align='center'>{container.productWeight}</TableCell>
+									<TableCell align='center'>{container.forkliftOperator ? 'Yes' : 'No'}</TableCell>
+									<TableCell align='center'>{container.stretchWrap ? 'Yes' : 'No'}</TableCell>
+									<TableCell align='center'>{container.additionalInfo}</TableCell>
+								</TableRow>
+							))}
 					</TableBody>
 				</Table>
 			</TableContainer>

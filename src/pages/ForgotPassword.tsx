@@ -5,7 +5,10 @@ import ForgotPasswordForm from '../components/auth/ForgotPasswordForm'
 import useAuth from '../hooks/useAuth'
 
 export default function ForgotPassword() {
-	const { forgotPassword, loading } = useAuth()
+	const { auth, forgotPassword, loading } = useAuth()
+
+	if (auth.isAuth) return null
+
 	return (
 		<AuthLayout>
 			<>

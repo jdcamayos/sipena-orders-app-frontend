@@ -13,3 +13,7 @@ export interface Container {
 }
 
 export interface CreateContainer extends Omit<Container, 'id' | 'createdAt' | 'updatedAt' | 'orderId'> {}
+
+export interface ListItemCreateContainer extends CreateContainer { id: number }
+
+export interface UpdateCreateContainer extends Partial<ListItemCreateContainer> {}

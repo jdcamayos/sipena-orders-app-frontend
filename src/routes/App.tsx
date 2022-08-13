@@ -24,12 +24,6 @@ export default function App() {
 			<AuthProvider>
 				<Router>
 					<Routes>
-						<Route element={<NoAuthRoutes />}>
-							<Route path='/login' element={<Login />} />
-							<Route path='/register' element={<Register />} />
-							<Route path='/forgot-password' element={<ForgotPassword />} />
-							<Route path='/change-password' element={<ChangePassword />} />
-						</Route>
 						<Route element={<PrivateRoutes />}>
 							<Route path='/' element={<Home />} />
 							<Route path='/profile' element={<Profile />} />
@@ -45,6 +39,12 @@ export default function App() {
 							<Route element={<AdminRoutes />}>
 								<Route path='/admin' element={<Admin />} />
 							</Route>
+						</Route>
+						<Route element={<NoAuthRoutes />}>
+							<Route path='/login' element={<Login />} />
+							<Route path='/register' element={<Register />} />
+							<Route path='/forgot-password' element={<ForgotPassword />} />
+							<Route path='/change-password' element={<ChangePassword />} />
 						</Route>
 					</Routes>
 				</Router>

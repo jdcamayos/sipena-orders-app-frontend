@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { OrderContext } from '../contexts/OrderContext'
-import { CreateContainer } from '../types'
+import { CreateContainer, ListItemCreateContainer } from '../types'
 
 
 export default function useCreateOrder() {
@@ -21,10 +21,34 @@ export default function useCreateOrder() {
       ...prev,
       containers: [
         ...prev.containers,
-        container
+        {
+          id: prev.containers.length === 0
+            ? prev.containers.length
+            : prev.containers[prev.containers.length - 1].id + 1,
+          ...container
+        }
       ]
     }))
   }
 
-  return { order, setDate, addContainer }
+  const editContainer = (container: ListItemCreateContainer) => {
+    return setOrder(prev => ({
+      ...prev,
+      containers: [
+        ...prev.containers.filter(c => c.id !== container.id),
+        container
+      ].sort((a,b) => a.id - b.id)
+    }))
+  }
+
+  const removeContainer = (id: number) => {
+    return setOrder(prev => ({
+      ...prev,
+      containers: [
+        ...prev.containers.filter(c => c.id !== id)
+      ]
+    }))
+  }
+
+  return { order, setDate, addContainer, editContainer, removeContainer }
 }
