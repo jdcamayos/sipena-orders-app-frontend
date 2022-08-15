@@ -1,24 +1,30 @@
 import * as React from 'react'
-import Box from '@mui/material/Box'
-// import Collapse from '@mui/material/Collapse'
+// MUI Styles
 import IconButton from '@mui/material/IconButton'
+import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
 import TablePagination from '@mui/material/TablePagination'
+import TableRow from '@mui/material/TableRow'
+// import Skeleton from '@mui/material/Skeleton'
+// import Box from '@mui/material/Box'
+// import Collapse from '@mui/material/Collapse'
 // import Typography from '@mui/material/Typography'
-import Paper from '@mui/material/Paper'
-// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+// Icons
 import AttachFileIcon from '@mui/icons-material/AttachFile'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
+// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+// Others
+import { dateFormat } from '../../utils/dates'
 import { OrderResponseArray } from '../../types'
 import { useNavigate } from 'react-router-dom'
-import { dateFormat } from '../../utils/dates'
-import SearchInput from './SearchInput'
+import useOrder from '../../hooks/useOrder'
+import TableBodyLoading from './TableBodyLoading'
+// import SearchInput from '../dashboard/SearchInput'
 
 
 
@@ -101,8 +107,8 @@ function OrderRow({ order }: RowProps) {
 
 	return (
 		<>
-			<TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-				<TableCell>
+			<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+				<TableCell sx={{ maxWidth: 50 }}>
 					<IconButton size='small' onClick={() => navigate(`/order/${order.id}`)}>
 						<KeyboardArrowRightIcon />
 					</IconButton>
@@ -133,11 +139,31 @@ function OrderRow({ order }: RowProps) {
 	)
 }
 
+// type SkillRowProps = {
+// 	cells?: number
+// }
+
+// function SkillRow(props: SkillRowProps) {
+// 	const { cells } = props
+
+// 	return (
+// 		<TableRow>
+// 			{Array.from({ length: cells ? cells : 1 }).map((_,i) => (
+// 				<TableCell key={`cell-${i}`}>
+// 					<Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+// 				</TableCell>
+// 			))}
+// 		</TableRow>
+// 	)
+// }
+
+
 type Props = {
-	orders: OrderResponseArray[]
+	// orders: OrderResponseArray[]
 }
 
-export default function OrdersTable({ orders }: Props) {
+export default function OrdersTable(props: Props) {
+	const { orders, loading } = useOrder()
 	const [page, setPage] = React.useState(0)
 	const [rowsPerPage, setRowsPerPage] = React.useState(10)
 
@@ -151,16 +177,15 @@ export default function OrdersTable({ orders }: Props) {
 	}
 	return (
 		<Paper>
-			<Box sx={{ display: "flex", py: 2, alignItems: "center", flexDirection: { xs: "column", md: "row" } }}>
+			{/* <Box sx={{ display: "flex", py: 2, alignItems: "center", flexDirection: { xs: "column", md: "row" } }}>
 				<SearchInput />
-			</Box>
-			<TableContainer
-			>
+			</Box> */}
+			<TableContainer component={Paper}>
 				<Table aria-label='collapsible table' size='small'>
 					{/* <TableHead>
 						<TableRow></TableRow>
 					</TableHead> */}
-					<TableHead>
+					<TableHead sx={{ backgroundColor: "primary.main", color: "black" }}>
 						<TableRow>
 							<TableCell />
 							<TableCell align='center'>Customer</TableCell>
@@ -173,6 +198,10 @@ export default function OrdersTable({ orders }: Props) {
 						</TableRow>
 					</TableHead>
 					<TableBody>
+						<TableBodyLoading loading={loading} rows={10} cells={6} />
+						{/* {loading && Array.from({ length: 10 }).map((_,i) => (
+							<SkillRow key={i} cells={6}/>
+						))} */}
 						{orders.map(order => (
 							<OrderRow key={order.id} order={order} />
 						))}

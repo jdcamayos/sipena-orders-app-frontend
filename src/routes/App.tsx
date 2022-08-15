@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import AdminProvider from '../contexts/AdminContext'
 // Context
 import AuthProvider from '../contexts/AuthContext'
 import OrderProvider from '../contexts/OrderContext'
@@ -37,7 +38,14 @@ export default function App() {
 							/>
 							<Route path='/order/:orderId' element={<Order />} />
 							<Route element={<AdminRoutes />}>
-								<Route path='/admin' element={<Admin />} />
+								<Route
+									path='/admin'
+									element={
+										<AdminProvider>
+											<Admin />
+										</AdminProvider>
+									}
+								/>
 							</Route>
 						</Route>
 						<Route element={<NoAuthRoutes />}>

@@ -6,6 +6,8 @@ export interface User {
 	role: 'admin' | 'customer' | 'worker'
 }
 
-export interface AdminUser extends Omit<User, 'id' | 'createdAt' | 'updatedAt'> {
+export interface AdminUser extends User {
 	blocked: boolean
 }
+
+export interface UpdateAdminUser extends Omit<AdminUser, 'id' | 'createdAt' | 'updatedAt'> {}

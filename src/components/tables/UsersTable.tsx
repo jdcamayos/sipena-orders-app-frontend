@@ -1,30 +1,22 @@
 import * as React from 'react'
-// import IconButton from '@mui/material/IconButton'
+// MUI Styles
+import Box from '@mui/material/Box'
+import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import Box from '@mui/material/Box'
-import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
-// import EditIcon from '@mui/icons-material/Edit'
-import UserForm from './UserForm'
+// Others
+import UserForm from '../forms/UserForm'
+import useAdmin from '../../hooks/useAdmin'
+import TableBodyLoading from './TableBodyLoading'
 
 export default function UsersTable() {
-	const users = [
-		{
-			email: 'jd.camayo@gmail.com',
-			role: 'admin',
-			blocked: false,
-		},
-		{
-			email: 'example@undefined.sh',
-			role: 'customer',
-			blocked: false,
-		},
-	]
+	const { users, loading } = useAdmin()
+
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 			<Typography variant='h5' sx={{ mb: 2 }}>
@@ -32,7 +24,7 @@ export default function UsersTable() {
 			</Typography>
 			<TableContainer component={Paper} sx={{ maxWidth: 650 }}>
 				<Table size='small' aria-label='users table'>
-					<TableHead>
+					<TableHead sx={{ backgroundColor: "primary.main", color: "black" }}>
 						<TableRow>
 							<TableCell align='center'>Status</TableCell>
 							<TableCell align='left'>Email</TableCell>
@@ -41,6 +33,7 @@ export default function UsersTable() {
 						</TableRow>
 					</TableHead>
 					<TableBody>
+						<TableBodyLoading loading={loading} rows={10} cells={4} />
 						{users.map(user => (
 							<TableRow key={user.email} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
 								<TableCell align='center'>
@@ -53,10 +46,7 @@ export default function UsersTable() {
 								<TableCell align='left'>{user.email}</TableCell>
 								<TableCell align='center'>{user.role}</TableCell>
 								<TableCell align='center'>
-									<UserForm />
-									{/* <IconButton>
-										<EditIcon />
-									</IconButton> */}
+									<UserForm initialValues={user} />
 								</TableCell>
 							</TableRow>
 						))}

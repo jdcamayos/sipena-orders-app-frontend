@@ -30,19 +30,10 @@ export default function CustomerForm(props: Props) {
 				<DialogTitle>{isUpdate ? 'Update Customer' : 'Create Customer'}</DialogTitle>
 				<DialogContent>
 					<CustomerInfo
-						// initialValues={{
-						// 	companyName: 'Test Name',
-						// 	streetAddress: '123 Happy St',
-						// 	city: 'Los Angeles',
-						// 	state: 'California',
-						// 	postalCode: '90001',
-						// 	phone: '123-456-7890',
-						// }}
 						isForm={true}
 						isUpdate={isUpdate}
 						handleClose={handleClose}
 					/>
-					{/* Content */}
 				</DialogContent>
 			</Dialog>
 		</>

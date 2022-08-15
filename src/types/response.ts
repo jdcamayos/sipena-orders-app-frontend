@@ -1,6 +1,6 @@
 import { Customer } from './customer'
 import { OrderComplete, OrderResponseArray } from './order'
-import { User } from './user'
+import { AdminUser, User } from './user'
 
 interface Response {
 	message: string
@@ -37,4 +37,8 @@ export interface CustomerResponse extends Response {
 
 export interface OrderResponse extends Response {
 	data: OrderComplete
+}
+
+export interface AdminUserResponse extends Response {
+	data: AdminUser[]
 }

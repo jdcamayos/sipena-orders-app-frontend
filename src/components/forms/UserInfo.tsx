@@ -9,7 +9,10 @@ import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import { useFormik } from 'formik'
-import { AdminUser } from '../../types'
+import { AdminUser, UpdateAdminUser } from '../../types'
+import useAdmin from '../../hooks/useAdmin'
+
+
 
 type Props = {
 	initialValues?: AdminUser
@@ -18,17 +21,22 @@ type Props = {
 
 export default function UserInfo(props: Props) {
 	const { initialValues, handleClose } = props
+	const { updateUser } = useAdmin()
+
 	const formik = useFormik({
 		initialValues: initialValues
 			? initialValues
 			: {
 				email: '',
-				role: '',
+				role: 'customer',
 				blocked: false,
 			},
-		onSubmit: values => {
+		onSubmit: (values: UpdateAdminUser) => {
 			console.log(values)
-			handleClose && handleClose()
+			if(initialValues) {
+				updateUser(initialValues?.id, values)
+				handleClose && handleClose()
+			}
 		},
 	})
 	return (

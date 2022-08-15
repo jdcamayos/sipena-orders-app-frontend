@@ -1,13 +1,14 @@
 import * as React from 'react'
-import DashboardLayout from '../components/dashboard/DashboardLayout'
-import CustomerForm from '../components/misc/CustomerForm'
-import CustomerInfo from '../components/misc/CustomerInfo'
-import useAuth from '../hooks/useAuth'
-import useCustomer from '../hooks/useCustomer'
 // MUI Styles
 import Avatar from '@mui/material/Avatar'
-import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
+// Others
+import CustomerForm from '../components/forms/CustomerForm'
+import CustomerInfo from '../components/forms/CustomerInfo'
+import DashboardLayout from '../components/dashboard/DashboardLayout'
+import useAuth from '../hooks/useAuth'
+import useCustomer from '../hooks/useCustomer'
 import UserInfo from '../components/misc/UserInfo'
 
 export default function Profile() {

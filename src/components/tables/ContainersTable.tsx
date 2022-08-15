@@ -1,20 +1,21 @@
 import * as React from 'react'
 // MUI Styles
 import Box from '@mui/material/Box'
+import IconButton from '@mui/material/IconButton'
 import Paper from '@mui/material/Paper'
-import Typography from '@mui/material/Typography'
-import TableContainer from '@mui/material/TableContainer'
 import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import TableCell from '@mui/material/TableCell'
-import TableBody from '@mui/material/TableBody'
-import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+// Icons
 import DeleteIcon from '@mui/icons-material/Delete'
-// import EditIcon from '@mui/icons-material/Edit'
+// Others
 import { ListItemCreateContainer } from '../../types'
-import useCreateOrder from '../../hooks/useCreateOrder'
 import ContainerForm from '../forms/ContainerForm'
+import useCreateOrder from '../../hooks/useCreateOrder'
 
 type Props = {
 	containers: ListItemCreateContainer[]
@@ -32,7 +33,7 @@ export default function ContainersTable(props: Props) {
 			</Box>
 			<TableContainer component={Paper}>
 				<Table size='small' aria-label='container table'>
-					<TableHead>
+					<TableHead sx={{ backgroundColor: "primary.main" }}>
 						<TableRow>
 							<TableCell align='center'>Action</TableCell>
 							<TableCell align='center'>Type</TableCell>
@@ -57,9 +58,6 @@ export default function ContainersTable(props: Props) {
 								<TableRow key={container.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
 									<TableCell align='center'>
 										<ContainerForm isUpdate={true} initialValues={container} />
-										{/* <IconButton>
-											<EditIcon />
-										</IconButton> */}
 										<IconButton onClick={() =>  removeContainer(container.id)}>
 											<DeleteIcon />
 										</IconButton>
