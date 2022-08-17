@@ -13,21 +13,22 @@ import Typography from '@mui/material/Typography'
 // Icons
 import DeleteIcon from '@mui/icons-material/Delete'
 // Others
-import { ListItemCreateContainer } from '../../types'
+import { Container, ListItemCreateContainer } from '../../types'
 import ContainerForm from '../forms/ContainerForm'
 import useCreateOrder from '../../hooks/useCreateOrder'
 
 type Props = {
-	containers: ListItemCreateContainer[]
+	isForm: boolean
+	containers:  ListItemCreateContainer[] | Container[]
 }
 
 export default function ContainersTable(props: Props) {
 	const { removeContainer } = useCreateOrder()
-	const { containers } = props
+	const { containers, isForm } = props
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 			<Box sx={{ width: "100%" }}>
-				<Typography align='left' variant='h6' sx={{ marginBottom: 2, marginLeft: 2 }}>
+				<Typography align='left' variant='h6' fontWeight={!isForm ? "bold" : 500} sx={{ marginBottom: 2, marginLeft: isForm ? 2 : 0 }}>
 					Containers
 				</Typography>
 			</Box>
@@ -35,7 +36,7 @@ export default function ContainersTable(props: Props) {
 				<Table size='small' aria-label='container table'>
 					<TableHead sx={{ backgroundColor: "primary.main" }}>
 						<TableRow>
-							<TableCell align='center'>Action</TableCell>
+							{isForm && <TableCell align='center'>Action</TableCell>}
 							<TableCell align='center'>Type</TableCell>
 							<TableCell align='center'>Contain</TableCell>
 							<TableCell align='center'>Qty</TableCell>
@@ -56,12 +57,14 @@ export default function ContainersTable(props: Props) {
 						{!!containers.length &&
 							containers.map(container => (
 								<TableRow key={container.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-									<TableCell align='center'>
-										<ContainerForm isUpdate={true} initialValues={container} />
-										<IconButton onClick={() =>  removeContainer(container.id)}>
-											<DeleteIcon />
-										</IconButton>
-									</TableCell>
+									{isForm && (
+										<TableCell align='center'>
+											<ContainerForm isUpdate={true} initialValues={container} />
+											<IconButton onClick={() =>  typeof container.id === 'number' && removeContainer(container.id)}>
+												<DeleteIcon />
+											</IconButton>
+										</TableCell>
+									)}
 									<TableCell align='center'>{container.type}</TableCell>
 									<TableCell align='center'>{container.contain}</TableCell>
 									<TableCell align='center'>{container.productQuantity}</TableCell>

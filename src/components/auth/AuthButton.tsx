@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Button from '@mui/material/Button'
+import LoadingButton from '@mui/lab/LoadingButton'
 
 type Props = {
 	loading: boolean
@@ -9,15 +9,15 @@ type Props = {
 export default function AuthButton(props: Props) {
 	const { content, loading } = props
 	return (
-		<Button
+		<LoadingButton
 			// {...props}
-			disabled={loading}
+			loading={loading}
 			fullWidth
 			sx={{ mt: 3, mb: 2 }}
 			type='submit'
 			variant='contained'
 		>
-			{loading ? 'Loading...' : content}
-		</Button>
+			{content}
+		</LoadingButton>
 	)
 }

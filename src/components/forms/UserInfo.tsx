@@ -5,6 +5,7 @@ import Checkbox from '@mui/material/Checkbox'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import InputLabel from '@mui/material/InputLabel'
+import LoadingButton from '@mui/lab/LoadingButton'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
@@ -21,7 +22,7 @@ type Props = {
 
 export default function UserInfo(props: Props) {
 	const { initialValues, handleClose } = props
-	const { updateUser } = useAdmin()
+	const { updateUser, loading } = useAdmin()
 
 	const formik = useFormik({
 		initialValues: initialValues
@@ -31,10 +32,9 @@ export default function UserInfo(props: Props) {
 				role: 'customer',
 				blocked: false,
 			},
-		onSubmit: (values: UpdateAdminUser) => {
-			console.log(values)
-			if(initialValues) {
-				updateUser(initialValues?.id, values)
+		onSubmit: async (values: UpdateAdminUser) => {
+			if (initialValues) {
+				await updateUser(initialValues?.id, values)
 				handleClose && handleClose()
 			}
 		},
@@ -82,8 +82,8 @@ export default function UserInfo(props: Props) {
           }
         />
 				<Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
-					<Button onClick={handleClose}>Go back</Button>
-					<Button sx={{ marginLeft: 3 }} variant="contained" type="submit">Update</Button>
+					<Button onClick={handleClose} disabled={loading}>Go back</Button>
+					<LoadingButton sx={{ marginLeft: 3 }} variant="contained" loading={loading} type="submit">Update</LoadingButton>
 				</Grid>
 			</Grid>
 		</Grid>

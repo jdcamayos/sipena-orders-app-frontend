@@ -20,7 +20,6 @@ export const getOrderById = async (orderId: string) => {
       authorization: `Bearer ${token}`
     }
   })
-  console.log(data.data)
   console.log(data.message)
   return data
 }
@@ -36,7 +35,6 @@ export const createOrder = async (order: CreateOrder) => {
       authorization: `Bearer ${token}`
     }
   })
-  console.log(data.data)
   console.log(data.message)
   return data
 }

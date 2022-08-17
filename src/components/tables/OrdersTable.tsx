@@ -22,7 +22,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import { dateFormat } from '../../utils/dates'
 import { OrderResponseArray } from '../../types'
 import { useNavigate } from 'react-router-dom'
-import useOrder from '../../hooks/useOrder'
+import useOrders from '../../hooks/useOrders'
 import TableBodyLoading from './TableBodyLoading'
 // import SearchInput from '../dashboard/SearchInput'
 
@@ -163,7 +163,7 @@ type Props = {
 }
 
 export default function OrdersTable(props: Props) {
-	const { orders, loading } = useOrder()
+	const { orders, loading } = useOrders()
 	const [page, setPage] = React.useState(0)
 	const [rowsPerPage, setRowsPerPage] = React.useState(10)
 
@@ -202,7 +202,14 @@ export default function OrdersTable(props: Props) {
 						{/* {loading && Array.from({ length: 10 }).map((_,i) => (
 							<SkillRow key={i} cells={6}/>
 						))} */}
-						{orders.map(order => (
+						{!orders.length && (
+							<TableRow>
+								<TableCell colSpan={6} align='center'>
+									Not containers yet
+								</TableCell>
+							</TableRow>
+						)}
+						{!!orders.length && orders.map(order => (
 							<OrderRow key={order.id} order={order} />
 						))}
 					</TableBody>

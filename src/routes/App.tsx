@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import AdminProvider from '../contexts/AdminContext'
 // Context
 import AuthProvider from '../contexts/AuthContext'
+import CustomerProvider from '../contexts/CustomerContext'
 import OrderProvider from '../contexts/OrderContext'
 import ThemeProvider from '../contexts/ThemeContext'
 import Admin from '../pages/Admin'
@@ -26,8 +27,22 @@ export default function App() {
 				<Router>
 					<Routes>
 						<Route element={<PrivateRoutes />}>
-							<Route path='/' element={<Home />} />
-							<Route path='/profile' element={<Profile />} />
+							<Route
+								path='/'
+								element={
+									<CustomerProvider>
+										<Home />
+									</CustomerProvider>
+								}
+							/>
+							<Route
+								path='/profile'
+								element={
+									<CustomerProvider>
+										<Profile />
+									</CustomerProvider>
+								}
+							/>
 							<Route
 								path='/order/new'
 								element={

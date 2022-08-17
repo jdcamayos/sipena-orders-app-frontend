@@ -18,7 +18,6 @@ export const getCustomer = async () => {
 
 export const createCustomer = async (customer: CreateCustomer) => {
 	const token = window.localStorage.getItem('jwt')
-	console.log(token)
 	const { data } = await axios.post<CustomerResponse>(
     config.backendURL + '/customer',
     customer,
@@ -34,7 +33,8 @@ export const createCustomer = async (customer: CreateCustomer) => {
 
 export const updateCustomer = async (customer: UpdateCustomer) => {
 	const token = window.localStorage.getItem('jwt')
-	const { data } = await axios.post<CustomerResponse>(config.backendURL + '/customer', 
+	const { data } = await axios.post<CustomerResponse>(
+		config.backendURL + '/customer',
     customer,
     {
       headers: {

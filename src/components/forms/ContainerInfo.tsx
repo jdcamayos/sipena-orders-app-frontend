@@ -1,6 +1,6 @@
 import { useFormik } from 'formik'
 import * as React from 'react'
-import { CreateContainer, ListItemCreateContainer } from '../../types'
+import { Container, CreateContainer, ListItemCreateContainer } from '../../types'
 import Button from '@mui/material/Button'
 import Checkbox from '@mui/material/Checkbox'
 import FormControl from '@mui/material/FormControl'
@@ -13,7 +13,7 @@ import TextField from '@mui/material/TextField'
 import useCreateOrder from '../../hooks/useCreateOrder'
 
 type Props = {
-	initialValues?: ListItemCreateContainer
+	initialValues?: ListItemCreateContainer | Container
 	isForm?: boolean
 	isUpdate?: boolean
 	handleClose?: () => void
@@ -45,7 +45,7 @@ export default function ContainerInfo(props: Props) {
 			  },
 		onSubmit: async (values: CreateContainer) => {
 			if (isUpdate && initialValues) {
-				editContainer({ id: initialValues.id, ...values })
+				if(typeof initialValues.id === 'number') editContainer({ id: initialValues.id, ...values })
 			} else {
 				addContainer(values)
 			}

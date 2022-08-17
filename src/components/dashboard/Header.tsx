@@ -23,6 +23,7 @@ import Paper from '@mui/material/Paper'
 import SideBar from './Sidebar'
 import BrandLink from './BrandLink'
 import ThemeButton from './ThemeButton'
+// import useCustomer from '../../hooks/useCustomer'
 
 const colorRole = {
 	admin: 'red',
@@ -32,6 +33,7 @@ const colorRole = {
 
 export default function Header() {
 	const { auth, signOut } = useAuth()
+	// const { customer } = useCustomer()
 	const navigate = useNavigate()
 	// const router = useRouter()
 	const [openSideBar, setOpenSideBar] = React.useState(false)
@@ -96,13 +98,16 @@ export default function Header() {
 									>
 										Home
 									</Button>
-									<Button
-										component={RouterLink}
-										to="/order/new"
-										sx={{ my: 2, color: 'white', display: 'block' }}
-									>
-										New Order
-									</Button>
+									{auth.user?.role === 'customer' && (
+										<Button
+											component={RouterLink}
+											to="/order/new"
+											sx={{ my: 2, color: 'white', display: 'block' }}
+
+										>
+											New Order
+										</Button>
+									)}
 							</Box>
 						)}
 						{/* Desktop NavLinks */}
@@ -155,11 +160,13 @@ export default function Header() {
 									</MenuItem>
 									<Divider />
 									<ThemeButton />
-									<MenuItem onClick={() => handleLinkUserMenu('/admin')}>
-										<Typography textAlign='center' width='100%'>
-											Admin
-										</Typography>
-									</MenuItem>
+									{auth.user?.role === 'admin' && (
+										<MenuItem onClick={() => handleLinkUserMenu('/admin')}>
+											<Typography textAlign='center' width='100%'>
+												Admin
+											</Typography>
+										</MenuItem>
+									)}
 									<MenuItem onClick={() => handleLinkUserMenu('/profile')}>
 										<Typography textAlign='center' width='100%'>
 											Profile

@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography'
 // Others
 import DashboardLayout from '../components/dashboard/DashboardLayout'
 import { useParams } from 'react-router-dom'
+import OrderInfo from '../components/misc/OrderInfo'
 
 export default function Order() {
   const { orderId } = useParams()
@@ -18,9 +19,7 @@ export default function Order() {
             Order Details
           </Typography>
         </Grid>
-        <Grid>
-          
-        </Grid>
+        {orderId && <OrderInfo orderId={orderId}/>}
       </Grid>
     </DashboardLayout>
   )

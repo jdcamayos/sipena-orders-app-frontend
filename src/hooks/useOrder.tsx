@@ -1,27 +1,53 @@
 import * as React from 'react'
 import * as orderService from '../services/order'
-import { Meta, OrderResponseArray } from '../types'
+import { OrderComplete } from '../types'
 
-export default function useOrder() {
-	const [orders, setOrders] = React.useState<OrderResponseArray[]>([] as OrderResponseArray[])
-	const [loading, setLoading] = React.useState(false)
-	const [meta, setMeta] = React.useState({} as Meta)
+export default function useOrder(orderId: string) {
+  const [order, setOrder] = React.useState<OrderComplete | null>(null)
+  const [loading, setLoading] = React.useState(false)
 
-	React.useEffect(() => {
-		fetchOrders()
-	}, [])
+  console.log(orderId)
 
-	const fetchOrders = async () => {
-		try {
-			setLoading(true)
-			const { data, meta } = await orderService.getOrders()
-			setOrders(data)
-			setMeta(meta)
-			setLoading(false)
-		} catch (error) {
-			setLoading(false)
-		}
-	}
+  React.useEffect(() => {
+    if (!order) {
+      fetchOrder(orderId)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-	return { orders, loading, meta }
+  const fetchOrder = async (orderId: string) => {
+    try {
+      setLoading(true)
+      const { data } = await orderService.getOrderById(orderId)
+      setOrder(data)
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+    }
+  }
+
+  const addWorkerToOrder = async (orderId: string, userId: string) => {
+    try {
+      setLoading(true)
+      // TODO: Call service
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+    }
+  }
+
+  const addFileToOrder = async (file: any) => {
+    try {
+      setLoading(true)
+      // TODO: Call service
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+    }
+  }
+
+  return { order, loading, addWorkerToOrder, addFileToOrder }
 }

@@ -39,6 +39,10 @@ export interface OrderResponse extends Response {
 	data: OrderComplete
 }
 
-export interface AdminUserResponse extends Response {
+export interface AdminUserArrayResponse extends Response {
 	data: AdminUser[]
+}
+
+export interface AdminUserResponse extends Response {
+	data: AdminUser
 }

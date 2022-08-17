@@ -1,5 +1,4 @@
 import * as React from 'react'
-// import { AdminUser } from '../types'
 import * as userService from '../services/user'
 import { AdminContext } from '../contexts/AdminContext'
 import { UpdateAdminUser } from '../types'
@@ -33,8 +32,10 @@ export default function useAdmin() {
 	const updateUser = async (id: string, user: UpdateAdminUser) => {
 		try {
 			setLoading(true)
-			// TODO: Something
-      console.log(id, user)
+      const { data } = await userService.updateUser(id, user)
+			if (data) {
+				await fetchUsers()
+			}
 			setLoading(false)
 		} catch (error) {
 			setLoading(false)

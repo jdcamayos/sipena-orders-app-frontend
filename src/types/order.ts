@@ -19,7 +19,7 @@ export interface OrderResponseArray extends Order {
 
 export interface OrderComplete extends Order {
   containers: Container[]
-  workers: Worker[]
+  workers: Worker[],
   attachments: Attachment[]
 }
 

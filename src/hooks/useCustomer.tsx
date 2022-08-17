@@ -1,13 +1,20 @@
 import * as React from 'react'
+import { CustomerContext } from '../contexts/CustomerContext'
 import * as customerService from '../services/customer'
-import { Customer } from '../types'
+import { CreateCustomer } from '../types'
 
 export default function useCustomer() {
-	const [customer, setCustomer] = React.useState<Customer | null>(null)
+	const context = React.useContext(CustomerContext)
+	const { customer, setCustomer } = context
 	const [loading, setLoading] = React.useState(false)
 
+	if (context === undefined) throw new Error('useCustomer must be used within a CustomerProvider')
+
 	React.useEffect(() => {
-		fetchCustomer()
+		if(!customer) {
+			fetchCustomer()
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const fetchCustomer = async () => {
@@ -21,5 +28,18 @@ export default function useCustomer() {
 		}
 	}
 
-	return { customer, loading }
+	const createCustomer = async (customer: CreateCustomer) => {
+		try {
+			setLoading(true)
+			const { data } = await customerService.createCustomer(customer)
+			if (data) {
+				await fetchCustomer()
+			}
+			setLoading(false)
+		} catch (error) {
+			setLoading(false)
+		}
+	}
+
+	return { customer, loading, createCustomer }
 }

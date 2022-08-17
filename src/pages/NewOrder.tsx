@@ -71,7 +71,7 @@ export default function NewOrder() {
 						<ContainerForm />
 					</Grid>
 					<Grid item xs={12}>
-						<ContainersTable containers={containers} />
+						<ContainersTable isForm={true} containers={containers} />
 					</Grid>
 				</Grid>
 			</Paper>

@@ -1,10 +1,10 @@
 import axios from "axios"
 import { config } from "../config"
-import { AdminUserResponse } from "../types"
+import { AdminUserArrayResponse, AdminUserResponse, UpdateAdminUser } from "../types"
 
 export const getUsers = async () => {
   const token = window.localStorage.getItem('jwt')
-  const { data } = await axios.get<AdminUserResponse>(
+  const { data } = await axios.get<AdminUserArrayResponse>(
     config.backendURL + '/user',
     {
       headers: {
@@ -16,10 +16,13 @@ export const getUsers = async () => {
   return data
 }
 
-export const updateUser = async () => {
+export const updateUser = async (id: string, user: UpdateAdminUser) => {
+  const { role, blocked } = user
+  const updateData = { role, blocked }
   const token = window.localStorage.getItem('jwt')
-  const { data } = await axios.get(
-    config.backendURL + '/user',
+  const { data } = await axios.put<AdminUserResponse>(
+    config.backendURL + '/user/' + id,
+    updateData,
     {
       headers: {
         authorization: `Bearer ${token}`,
