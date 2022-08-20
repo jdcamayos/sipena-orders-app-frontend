@@ -1,5 +1,6 @@
 import { Attachment } from "./attachment"
 import { Container, ListItemCreateContainer } from "./container"
+import { Customer } from "./customer"
 import { Worker } from "./worker"
 
 export interface Order {
@@ -11,9 +12,11 @@ export interface Order {
 }
 
 export interface OrderResponseArray extends Order {
+  customer: Customer,
   _count: {
+    attachments: number,
     containers: number
-    workers: number
+    workers: number,
   }
 }
 

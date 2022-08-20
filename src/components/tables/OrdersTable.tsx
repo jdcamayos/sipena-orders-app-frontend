@@ -84,6 +84,7 @@ type RowProps = {
 }
 
 function OrderRow({ order }: RowProps) {
+	console.log(order)
 	const navigate = useNavigate()
 	// const [open, setOpen] = React.useState<{ attachment: boolean; container: boolean; worker: boolean }>({
 	// 	attachment: false,
@@ -113,7 +114,7 @@ function OrderRow({ order }: RowProps) {
 						<KeyboardArrowRightIcon />
 					</IconButton>
 				</TableCell>
-				<TableCell align='center'>{order.customerId}</TableCell>
+				<TableCell align='center'>{order.customer.companyName}</TableCell>
 				<TableCell align='center'>{dateFormat(order.date)}</TableCell>
 				<TableCell align='center'>
 					{order._count.containers}
@@ -128,7 +129,7 @@ function OrderRow({ order }: RowProps) {
 					</IconButton> */}
 				</TableCell>
 				<TableCell align='center'>
-					{order._count.containers}
+					{order._count.attachments}
 					{/* <IconButton aria-label='expand row' size='small' onClick={() => handleOpen('container')}>
 						{open.attachment ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
 					</IconButton> */}
@@ -188,7 +189,7 @@ export default function OrdersTable(props: Props) {
 					<TableHead sx={{ backgroundColor: "primary.main", color: "black" }}>
 						<TableRow>
 							<TableCell />
-							<TableCell align='center'>Customer</TableCell>
+							<TableCell align='center'>Company Name</TableCell>
 							<TableCell align='center'>Date</TableCell>
 							<TableCell align='center'>Containers</TableCell>
 							<TableCell align='center'>Workers</TableCell>
