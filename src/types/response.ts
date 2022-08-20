@@ -1,3 +1,4 @@
+import { Attachment } from './attachment'
 import { Customer } from './customer'
 import { OrderComplete, OrderResponseArray } from './order'
 import { AdminUser, User } from './user'
@@ -45,4 +46,8 @@ export interface AdminUserArrayResponse extends Response {
 
 export interface AdminUserResponse extends Response {
 	data: AdminUser
+}
+
+export interface AttachmentResponse extends Response {
+	data: Attachment
 }

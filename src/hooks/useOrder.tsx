@@ -1,53 +1,64 @@
-import * as React from 'react'
+import { OrderContext } from '../contexts/OrderContext'
+import * as attachmentService from '../services/attachment'
 import * as orderService from '../services/order'
-import { OrderComplete } from '../types'
+import * as React from 'react'
 
-export default function useOrder(orderId: string) {
-  const [order, setOrder] = React.useState<OrderComplete | null>(null)
-  const [loading, setLoading] = React.useState(false)
+export default function useOrder(orderId?: string) {
+	const context = React.useContext(OrderContext)
+  const { order, setOrder } = context
+	const [loading, setLoading] = React.useState(false)
 
-  console.log(orderId)
+  if (context === undefined) throw new Error('useOrder must be used within a OrderProvider')
 
-  React.useEffect(() => {
-    if (!order) {
-      fetchOrder(orderId)
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+	console.log(orderId)
 
-  const fetchOrder = async (orderId: string) => {
-    try {
-      setLoading(true)
-      const { data } = await orderService.getOrderById(orderId)
-      setOrder(data)
-      setLoading(false)
-    } catch (error) {
-      setLoading(false)
-      console.log(error)
-    }
-  }
+	React.useEffect(() => {
+		if (!order && orderId) {
+			fetchOrder(orderId)
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 
-  const addWorkerToOrder = async (orderId: string, userId: string) => {
-    try {
-      setLoading(true)
-      // TODO: Call service
-      setLoading(false)
-    } catch (error) {
-      setLoading(false)
-      console.log(error)
-    }
-  }
+	const fetchOrder = async (orderId: string) => {
+		try {
+			setLoading(true)
+			const { data } = await orderService.getOrderById(orderId)
+			setOrder(data)
+			setLoading(false)
+		} catch (error) {
+			setLoading(false)
+			console.log(error)
+		}
+	}
 
-  const addFileToOrder = async (file: any) => {
-    try {
-      setLoading(true)
-      // TODO: Call service
-      setLoading(false)
-    } catch (error) {
-      setLoading(false)
-      console.log(error)
-    }
-  }
+	const addWorkerToOrder = async (orderId: string, userId: string) => {
+		try {
+			setLoading(true)
+			// TODO: Call service
+			setLoading(false)
+		} catch (error) {
+			setLoading(false)
+			console.log(error)
+		}
+	}
 
-  return { order, loading, addWorkerToOrder, addFileToOrder }
+	const addFileToOrder = async (form: FormData) => {
+		try {
+			setLoading(true)
+			if (!order) {
+				setLoading(false)
+				return
+			}
+			const { data } = await attachmentService.addAttachment(order.id, form)
+			if (data) {
+				fetchOrder(order.id)
+			}
+			setLoading(false)
+		} catch (error) {
+			setLoading(false)
+			console.log(error)
+		}
+	}
+
+	return { order, loading, addWorkerToOrder, addFileToOrder }
 }

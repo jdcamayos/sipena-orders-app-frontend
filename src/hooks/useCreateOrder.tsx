@@ -1,13 +1,13 @@
 import * as React from 'react'
-import { OrderContext } from '../contexts/OrderContext'
+import { CreateOrderContext } from '../contexts/CreateOrderContext'
 import { CreateContainer, ListItemCreateContainer } from '../types'
 
 
 export default function useCreateOrder() {
-  const context = React.useContext(OrderContext)
+  const context = React.useContext(CreateOrderContext)
   const { order, setOrder } = context
 
-  if (context === undefined) throw new Error('useCreateOrder must be used within a OrderProvider')
+  if (context === undefined) throw new Error('useCreateOrder must be used within a CreateOrderProvider')
 
   const setDate = (date: string | Date) => {
     return setOrder(prev => ({

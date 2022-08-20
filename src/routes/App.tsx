@@ -1,13 +1,14 @@
 import * as React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import AdminProvider from '../contexts/AdminContext'
 // Context
+import AdminProvider from '../contexts/AdminContext'
 import AuthProvider from '../contexts/AuthContext'
+import CreateOrderProvider from '../contexts/CreateOrderContext'
 import CustomerProvider from '../contexts/CustomerContext'
 import OrderProvider from '../contexts/OrderContext'
 import ThemeProvider from '../contexts/ThemeContext'
-import Admin from '../pages/Admin'
 // Pages
+import Admin from '../pages/Admin'
 import ChangePassword from '../pages/ChangePassword'
 import ForgotPassword from '../pages/ForgotPassword'
 import Home from '../pages/Home'
@@ -16,6 +17,7 @@ import NewOrder from '../pages/NewOrder'
 import Order from '../pages/Order'
 import Profile from '../pages/Profile'
 import Register from '../pages/Register'
+// Routes
 import AdminRoutes from './AdminRoutes'
 import NoAuthRoutes from './NoAuthRoutes'
 import PrivateRoutes from './PrivateRoutes'
@@ -46,12 +48,19 @@ export default function App() {
 							<Route
 								path='/order/new'
 								element={
-									<OrderProvider>
+									<CreateOrderProvider>
 										<NewOrder />
+									</CreateOrderProvider>
+								}
+							/>
+							<Route
+								path='/order/:orderId'
+								element={
+									<OrderProvider>
+										<Order />
 									</OrderProvider>
 								}
 							/>
-							<Route path='/order/:orderId' element={<Order />} />
 							<Route element={<AdminRoutes />}>
 								<Route
 									path='/admin'

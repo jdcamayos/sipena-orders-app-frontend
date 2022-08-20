@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { CreateOrder } from '../types'
+import { OrderComplete } from '../types'
 
 type OrderContextType = {
-  order: CreateOrder
-  setOrder: React.Dispatch<React.SetStateAction<CreateOrder>>
+  order: OrderComplete | null,
+  setOrder: React.Dispatch<React.SetStateAction<OrderComplete| null>>
 }
 
 export const OrderContext = React.createContext<OrderContextType>({} as OrderContextType)
@@ -12,13 +12,8 @@ type Props = {
   children: React.ReactNode
 }
 
-const initialState: CreateOrder = {
-  date: new Date(),
-  containers: []
-}
-
 export default function OrderProvider(props: Props) {
-  const [order, setOrder] = React.useState<CreateOrder>(initialState)
+  const [order, setOrder] = React.useState<OrderComplete | null>(null)
 
   return (
     <OrderContext.Provider value={{ order, setOrder }}>

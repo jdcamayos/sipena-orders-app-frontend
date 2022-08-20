@@ -1,11 +1,14 @@
 import * as React from 'react'
+// MUI Styles
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
+// Icons
+import AddIcon from '@mui/icons-material/Add'
+import EditIcon from '@mui/icons-material/Edit'
+// Others
 import ContainerInfo from './ContainerInfo'
 import { Container, ListItemCreateContainer } from '../../types'
 
